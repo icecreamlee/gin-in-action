@@ -1,0 +1,12 @@
+[app]
+env = debug
+port = 8000
+[db]
+host = localhost
+port = 3306
+user = root
+password = 123456
+db_name = blog
+[redis]
+addr=127.0.0.1:6379
+db=0
