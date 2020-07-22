@@ -2,13 +2,42 @@ package core
 
 import (
 	"github.com/IcecreamLee/goutils"
+	"github.com/jinzhu/gorm"
+	"time"
 )
+
+type IModel interface {
+	SetDefaultCreatedAt()
+	SetDefaultUpdatedAt()
+}
 
 type Model struct {
 	ID        uint `gorm:"primary_key"`
 	CreatedAt MTime
 	UpdatedAt MTime
 	DeletedAt *MTime
+}
+
+func (m *Model) SetDefaultCreatedAt() {
+	m.CreatedAt = MTime(time.Now())
+}
+
+func (m *Model) SetDefaultUpdatedAt() {
+	m.UpdatedAt = MTime(time.Now())
+}
+
+func (m *Model) BeforeCreate(scope *gorm.Scope) (err error) {
+	m.SetDefaultCreatedAt()
+	return
+}
+
+func (m *Model) BeforeUpdate(scope *gorm.Scope) (err error) {
+	m.SetDefaultUpdatedAt()
+	return
+}
+
+func setUpdateAt(m IModel) {
+	m.SetDefaultUpdatedAt()
 }
 
 /*

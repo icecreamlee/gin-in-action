@@ -11,15 +11,14 @@ import (
 
 var loginUser models.User
 
+// Index 首页接口
 func Index(c *gin.Context) {
-	c.JSON(200, core.ApiSuccess(
-		core.CodeSuccess, "success", struct {
-			ID   uint   `gorm:"primary_key",json:"id"`
-			Name string `json:"name"`
-		}{loginUser.ID, loginUser.Name},
-	))
+	products := models.GetRecentProducts()
+	user := models.GetUser(loginUser.ID)
+	c.JSON(200, core.ApiSuccess(core.CodeSuccess, "success", gin.H{"user": user, "products": products}))
 }
 
+// Reg 注册接口
 func Reg(c *gin.Context) {
 	var regForm forms.RegForm
 	err := c.ShouldBindJSON(&regForm)
@@ -30,6 +29,7 @@ func Reg(c *gin.Context) {
 	c.JSON(200, logics.Reg(regForm))
 }
 
+// Login 登录接口
 func Login(c *gin.Context) {
 	var loginForm forms.LoginForm
 	err := c.BindJSON(&loginForm)
@@ -40,7 +40,12 @@ func Login(c *gin.Context) {
 	c.JSON(200, logics.Login(loginForm))
 }
 
-// ManagePermissionValidation 验证管理相关页面的密码不正确则显示404页
+// Logout 退出登录
+func Logout(c *gin.Context) {
+	c.JSON(200, logics.Logout(c.GetHeader("token")))
+}
+
+// CheckLogin 检查登录
 func CheckLogin(c *gin.Context) {
 	token := c.GetHeader("token")
 	loginUser.ID = uint(goutils.ToInt(core.RedisGet("token_" + token)))

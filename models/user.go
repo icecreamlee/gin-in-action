@@ -3,7 +3,7 @@ package models
 import "gin_in_action/core"
 
 type User struct {
-	ID        uint        `gorm:"primary_key",json:"id"`
+	ID        uint        `gorm:"primary_key" json:"id"`
 	Name      string      `json:"name"`
 	Password  string      `json:"-"`
 	Passsalt  string      `json:"-"`
@@ -14,7 +14,7 @@ type User struct {
 }
 
 func (u User) TableName() string {
-	return "user"
+	return "users"
 }
 
 func GetUser(id uint) User {

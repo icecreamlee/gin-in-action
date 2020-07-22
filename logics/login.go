@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// Login 登录
 func Login(form forms.LoginForm) core.ApiError {
 	user := models.GetUserByName(form.Username)
 	if user.ID == 0 {
@@ -25,4 +26,10 @@ func Login(form forms.LoginForm) core.ApiError {
 	core.RedisSet("token_"+token, user.ID, time.Hour*24)
 
 	return core.ApiSuccess(core.CodeSuccess, "success", gin.H{"token": token})
+}
+
+// Logout 退出登录
+func Logout(token string) core.ApiError {
+	core.RedisDel("token_" + token)
+	return core.ApiSuccess()
 }

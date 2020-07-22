@@ -21,3 +21,15 @@ Content-Type: application/json
 }
 
 > {% client.global.set("token", response.body.data.token); %}
+
+###
+GET http://localhost:8000/logout
+Token: {{token}}
+
+###
+GET http://localhost:8000/products?page=1&pageSize=10
+Token: {{token}}
+
+###
+GET http://localhost:8000/product?id=1
+Token: {{token}}
