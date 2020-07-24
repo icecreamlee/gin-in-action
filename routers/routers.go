@@ -14,4 +14,6 @@ func SetRouters(r *gin.Engine) {
 	r.GET("/index", controllers.CheckLogin, controllers.Index)
 	r.GET("/product", controllers.CheckLogin, controllers.Product)
 	r.GET("/products", controllers.CheckLogin, controllers.ProductList)
+	r.POST("/add-product", controllers.CheckLogin, controllers.AddProduct)
+	r.POST("/update-product", controllers.CheckLogin, controllers.UpdateProduct)
 }

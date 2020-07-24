@@ -33,3 +33,34 @@ Token: {{token}}
 ###
 GET http://localhost:8000/product?id=1
 Token: {{token}}
+
+###
+POST http://localhost:8000/add-product
+Token: {{token}}
+Content-Type: application/json
+
+{
+  "name": "产品2",
+  "price": 0.02,
+  "pic": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3468842248,1928586949&fm=26&gp=0.jpg",
+  "images": [
+    "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2922664179,3817800836&fm=26&gp=0.jpg",
+    "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2915512436,1541993188&fm=26&gp=0.jpg"
+  ]
+}
+
+###
+POST http://localhost:8000/update-product
+Token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "产品11",
+  "price": 0.02,
+  "pic": "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3468842248,1928586949&fm=26&gp=0.jpg",
+  "images": [
+    "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2922664179,3817800836&fm=26&gp=0.jpg",
+    "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2915512436,1541993188&fm=26&gp=0.jpg"
+  ]
+}

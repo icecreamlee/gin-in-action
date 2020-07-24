@@ -26,7 +26,7 @@ func (p Product) TableName() string {
 // ProductImage 产品图片表结构体
 type ProductImage struct {
 	ID        uint        `gorm:"primary_key" json:"id"`
-	ProductId int         `json:"product_id"`
+	ProductId uint        `json:"product_id"`
 	Image     string      `json:"image"`
 	IsDelete  int         `json:"is_delete"`
 	CreatedAt core.MTime  `json:"created_at"`
@@ -76,4 +76,15 @@ func GetProductList(form forms.ProductForm) gin.H {
 	db.Offset((form.Page - 1) * form.PageSize).Limit(form.PageSize).Order("id").Find(&products)
 	db.Count(&count)
 	return gin.H{"count": count, "products": products}
+}
+
+// GetProductByName 根据名称获取产品信息
+func GetProductByName(name string) (product Product) {
+	DB.Where("name = ?", name).First(&product)
+	return
+}
+
+// DeleteProductImages 删除指定产品的图片
+func DeleteProductImages(productId uint) {
+	DB.Where("id = ?", productId).Delete(&Product{})
 }

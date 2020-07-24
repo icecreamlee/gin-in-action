@@ -26,8 +26,7 @@ func Reg(form forms.RegForm) core.ApiError {
 	}
 
 	if err := models.DB.Create(&user).Error; err != nil {
-		return core.ApiError{Msg: "failed to create user", Data: err.Error()}
+		return core.ApiFailure(core.CodeFailure, "failed to create user", err.Error())
 	}
-
-	return core.ApiError{Msg: "success"}
+	return core.ApiSuccess()
 }

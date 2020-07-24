@@ -3,6 +3,7 @@ package controllers
 import (
 	"gin_in_action/core"
 	"gin_in_action/forms"
+	"gin_in_action/logics"
 	"gin_in_action/models"
 	"github.com/IcecreamLee/goutils"
 	"github.com/gin-gonic/gin"
@@ -33,4 +34,24 @@ func ProductList(c *gin.Context) {
 	}
 	products := models.GetProductList(productForm)
 	c.JSON(200, core.ApiSuccess(0, "", products))
+}
+
+// AddProduct 添加产品接口
+func AddProduct(c *gin.Context) {
+	form, err := forms.ValidateProductAddForm(c)
+	if err != nil {
+		c.JSON(200, core.ApiFailure(err.Error()))
+		return
+	}
+	c.JSON(200, logics.AddProduct(form))
+}
+
+// UpdateProduct 更新产品接口
+func UpdateProduct(c *gin.Context) {
+	form, err := forms.ValidateProductUpdateForm(c)
+	if err != nil {
+		c.JSON(200, core.ApiFailure(err.Error()))
+		return
+	}
+	c.JSON(200, logics.UpdateProduct(form))
 }
