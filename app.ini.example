@@ -1,6 +1,7 @@
 [app]
 env = debug
 port = 8000
+rate_limit = 3
 [db]
 host = localhost
 port = 3306

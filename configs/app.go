@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	ENV  = "dev"
-	Port = "8000"
+	ENV       = "dev"
+	Port      = "8000"
+	RateLimit = 0
 )
 
 func init() {
@@ -19,6 +20,7 @@ func init() {
 	section := iniConfig.Section("app")
 	ENV = section.Key("env").String()
 	Port = section.Key("port").String()
+	RateLimit, _ = section.Key("rate_limit").Int()
 	section = iniConfig.Section("db")
 	DBHost = section.Key("host").String()
 	DBPort = section.Key("port").String()
